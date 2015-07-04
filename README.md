@@ -8,8 +8,3 @@
 ```bash
 有时间的话，以后会更新菜单等功能
 ```
-
-User: humooo
-Email: humooo@outlook.com
-Date: 15-7-4
-Time: 下午7:42
