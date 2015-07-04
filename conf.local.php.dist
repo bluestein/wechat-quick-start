@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * Email: humooo@outlook.com
+ * User: humooo
+ * Date: 15-1-31
+ * Time: 下午1:13
+ */
+
+ /*
+  用法：
+    1、该文件是conf.local.php文件模板，开发者只需要拷贝该文件另存为conf.local.php即可；
+    2、下面带有todo字样的是开发者需要自己填写的内容；
+ */
+
+//--------------------------url--------------------------------
+//主网址
+define('MAIN_URL', 'http://www.sample.com'); //todo
+
+//--------------------------wechat--------------------------------
+//微信信息
+define('APPID', '');//todo
+define('APPSECRET', '');//todo
+
+//定义token
+define("TOKEN", "");//todo
+
+//--------------------------database--------------------------------
+//host
+define('DB_HOST', 'localhost');//todo
+//port
+define('DB_PORT', 3306);//todo
+//username
+define('DB_USER', 'root');//todo
+//password
+define('DB_PWD', '');//todo
+//database
+define('DB', '');//todo
+
+//table
+//user table
+define('TB_USER', ''); //todo
+//news table
+define('TB_NEWS', ''); //todo
+
+//--------------------------other--------------------------------
+//true: debug; false: product
+define('DEBUG', true); //todo
