@@ -49,8 +49,9 @@ function response($postObj)
             break;
     }
 
-    if (!$log->write_log($logmsg, 'access') && DEBUG) {
-        echo 'error: ' . $log->error;
+    if (!$log->write_log($logmsg, 'access')) {
+        if (DEBUG)
+            echo 'error: ' . $log->error;
     }
 
     return $return;
@@ -107,7 +108,7 @@ function news($postObj)
         'order' => 'rank ASC'
     );
     if (!$res = $db->fetch($query))
-        $log->write($db->error);
+        $log->write_log($db->error);
     foreach ($res as $item) {
         $itemArray[] = array(
             'Title' => $item['title'],
@@ -139,7 +140,7 @@ function subscribe($postObj)
     $log = new Logs();
 
     if (!$db->insert(TB_USER, array('', $openID)))
-        $log->write($db->error, $db->level);
+        $log->write_log($db->error, $db->level);
 
     $contentStr = "Welcome to blublu";
 
