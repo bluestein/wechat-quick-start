@@ -133,5 +133,13 @@
             ),
         )
     );
-```  
+```
+
+```bash
+    未认证的订阅号没有菜单权限
+```
+
+未认证创建菜单样例
+![未认证创建菜单样例](https://raw.githubusercontent.com/bluestein/wechat-quick-start/master/pic/create_menu_sample.png)
+
 ---
