@@ -33,10 +33,10 @@
 ## 三、目录
 > **[index.php 微信入口](#user-content-indexphp-微信入口)**  
 > **[wechat.php 微信](#user-content-1-wechatphp-微信)**  
-> **[db.class.php MySQL数据库操作类](#user-content-2-dbclassphp-MySQL数据库操作类)**  
+> **[db.class.php MySQL数据库操作类](#user-content-2-dbclassphp-mysql数据库操作类)**
 > **[com.function.php 公共函数](#user-content-3-comfunctionphp-公共函数)**  
-> **[logs.class.php 简单日志类](#user-content-4-简单日志类)**  
-> **[menu.class.php 菜单类](#user-content-5-菜单类)**  
+> **[logs.class.php 简单日志类](#user-content-4-logsclassphp-简单日志类)**
+> **[menu.class.php 菜单类](#user-content-5-menuclassphp-菜单类)**
 
 ---
 
