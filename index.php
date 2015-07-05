@@ -6,7 +6,7 @@
  * Date: 15-1-31
  * Time: 下午1:13
  */
-include_once 'com/wechat.function.php';
+include_once 'com/wechat.php';
 include_once 'conf.global.php';
 include_once 'conf.local.php';
 

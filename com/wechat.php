@@ -49,13 +49,9 @@ function response($postObj)
             break;
     }
 
-    $redis = new Redis();
-    $redis->connect(REDIS_HOST, REDIS_PORT);
-
-    if (!$log->write_log($logmsg, 'access'))
-        $redis->set('err', $log->error);
-
-    $redis->close();
+    if (!$log->write_log($logmsg, 'access') && DEBUG) {
+        echo 'error: ' . $log->error;
+    }
 
     return $return;
 }
@@ -111,7 +107,7 @@ function news($postObj)
         'order' => 'rank ASC'
     );
     if (!$res = $db->fetch($query))
-        $log->write_log($db->error);
+        $log->write($db->error);
     foreach ($res as $item) {
         $itemArray[] = array(
             'Title' => $item['title'],
@@ -143,7 +139,7 @@ function subscribe($postObj)
     $log = new Logs();
 
     if (!$db->insert(TB_USER, array('', $openID)))
-        $log->write_log($db->error, $db->level);
+        $log->write($db->error, $db->level);
 
     $contentStr = "Welcome to blublu";
 
@@ -157,10 +153,7 @@ function subscribe($postObj)
 function unsubscribe($postObj)
 {
     $openID = $postObj->FromUserName;
-    $log = new Logs();
-
-    $logmsg = ' [unsubscribe] --> [user] ' . $openID;
-    $log->write_log($logmsg, 'info');
+    //一些操作
 }
 
 

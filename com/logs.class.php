@@ -43,8 +43,6 @@ class Logs
     /**
      * Write Log File
      *
-     * Generally this function will be called using the global log_message() function
-     *
      * @access    public
      * @param    string    the error level
      * @param    string    the error message
@@ -58,7 +56,7 @@ class Logs
             foreach ($this->_levels as $level)
                 $levels .= $level . ',';
             $this->error = 'no permission to this path：' . $this->log_path;
-            $this->error .= ' or no such level log, only support one of these: ' . rtrim($levels, ',');
+            $this->error .= 'or no such level log, only support one of these: ' . rtrim($levels, ',');
             return FALSE;
         }
 

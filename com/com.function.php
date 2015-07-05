@@ -9,6 +9,8 @@
 include_once "../conf.global.php";
 include_once '../conf.local.php';
 
+//------------------------------------Tencent Validation functions-------------------------------------------//
+
 /**
  * valid
  */
@@ -49,6 +51,9 @@ function checkSignature()
     }
 }
 
+//------------------------------------------messages-----------------------------------//
+//Extending it on your own needs
+//e.g. picture message, voice message etc.
 
 /**
  * text msg
@@ -74,9 +79,10 @@ function responseText($postObj, $contentStr)
 }
 
 /**
+ * news msg
  * @param $content
  * @return string
- * example:
+ * usage:
  * $content = array(
  *  'fromUserName' => 'username',
  *  'toUserName' => 'username',
@@ -119,6 +125,11 @@ function responseMultiNews($content)
     return $result;
 }
 
+/**
+ * video msg
+ * @param $data
+ * @return string
+ */
 function responseVideo($data)
 {
     $msgTpl = "<xml>
@@ -137,33 +148,36 @@ function responseVideo($data)
 }
 
 
-//post------------------------------------------------------------------------------------------------
-function httpPost($url, $param, $post_file = false)
+//------------------------------------curl: post & get-------------------------------------------//
+
+/**
+ * @param $url
+ * @param $data
+ * @return bool|int|mixed
+ * usage:
+ * $data = array('key1'=>'value1','key2'=>'value2');
+ */
+function httpPost($url, $data)
 {
     $oCurl = curl_init();
-    if (stripos($url, "https://") !== FALSE) {
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, false);
-    }
-    if (is_string($param) || $post_file) {
-        $strPOST = $param;
-    } else {
-        $aPOST = array();
-        if (is_array($param)) {
-            foreach ($param as $key => $val) {
-                $aPOST[] = $key . "=" . urlencode($val);
-            }
+
+    $aPOST = array();
+    if (is_array($data)) {
+        foreach ($data as $key => $val) {
+            $aPOST[] = $key . "=" . urlencode($val);
         }
-        $strPOST = join("&", $aPOST);
     }
+    $strPOST = join("&", $aPOST);
+
     curl_setopt($oCurl, CURLOPT_URL, $url);
     curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($oCurl, CURLOPT_POST, true);
     curl_setopt($oCurl, CURLOPT_POSTFIELDS, $strPOST);
     $sContent = curl_exec($oCurl);
+
     if (curl_errno($oCurl)) {
         if (DEBUG)
-            echo "curl error:" . curl_error($oCurl);
+            echo "curl error:" . curl_error($oCurl);//you can do your own debug
         return false;
     }
     $aStatus = curl_getinfo($oCurl);
@@ -176,7 +190,6 @@ function httpPost($url, $param, $post_file = false)
 }
 
 /**
- * http-get
  * @param $url
  * @return bool|mixed
  */
@@ -199,8 +212,10 @@ function httpGet($url)
     }
 }
 
+//------------------------------------some other functions-------------------------------------------//
+
 /**
- * merge space
+ * merge spaces
  * @param $string
  * @return mixed
  */
@@ -211,6 +226,7 @@ function merge_spaces($string)
 
 
 /**
+ * Get a random string with length $n
  * @param $n
  * @return string
  */
@@ -219,8 +235,16 @@ function nonceStr($n)
     return substr(str_shuffle('abcdefghijklmnopqrstuvwxyz012345679ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $n);
 }
 
-// Code2Text::getText('A', Code2Text::$errCode);
-//代码转文本，腾讯官方错误返回码
+
+/**
+ *------------------------------------code to text class-------------------------------------------
+ * literal meaning: code to text.
+ * Class Code2Text
+ * usage:
+ * Code2Text::getText(code, Code2Text::$TencentCodeText);
+ * extends:
+ * e.g. $OtherCodeText = array(CODE=>TEXT) etc.
+ */
 class Code2Text
 {
 
@@ -239,7 +263,7 @@ class Code2Text
         }
     }
 
-    public static $errCode = array(
+    public static $TencentCodeText = array(
         '-1' => '系统繁忙，此时请开发者稍候再试',
         '0' => '请求成功',
         '40001' => '获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，或查看是否正在为恰当的公众号调用接口',
